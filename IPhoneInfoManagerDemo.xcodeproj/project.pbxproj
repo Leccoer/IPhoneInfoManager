@@ -13,6 +13,8 @@
 		9B0CBFFE2192CC510073A168 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B0CBFFD2192CC510073A168 /* Assets.xcassets */; };
 		9B0CC0012192CC510073A168 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B0CBFFF2192CC510073A168 /* LaunchScreen.storyboard */; };
 		9B0CC0042192CC510073A168 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B0CC0032192CC510073A168 /* main.m */; };
+		9B0CC00E2192CCB10073A168 /* IPhoneInfoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B0CC00D2192CCB10073A168 /* IPhoneInfoManager.m */; };
+		9B0CC0112192DE270073A168 /* AppDelegate+IPhoneInfoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B0CC0102192DE270073A168 /* AppDelegate+IPhoneInfoManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,10 @@
 		9B0CC0002192CC510073A168 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9B0CC0022192CC510073A168 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9B0CC0032192CC510073A168 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		9B0CC00C2192CCB10073A168 /* IPhoneInfoManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IPhoneInfoManager.h; sourceTree = "<group>"; };
+		9B0CC00D2192CCB10073A168 /* IPhoneInfoManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IPhoneInfoManager.m; sourceTree = "<group>"; };
+		9B0CC00F2192DE270073A168 /* AppDelegate+IPhoneInfoManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+IPhoneInfoManager.h"; sourceTree = "<group>"; };
+		9B0CC0102192DE270073A168 /* AppDelegate+IPhoneInfoManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+IPhoneInfoManager.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +48,7 @@
 		9B0CBFE82192CC500073A168 = {
 			isa = PBXGroup;
 			children = (
+				9B0CC00A2192CC870073A168 /* IPhoneInfoManager */,
 				9B0CBFF32192CC500073A168 /* IPhoneInfoManagerDemo */,
 				9B0CBFF22192CC500073A168 /* Products */,
 			);
@@ -69,6 +76,17 @@
 				9B0CC0032192CC510073A168 /* main.m */,
 			);
 			path = IPhoneInfoManagerDemo;
+			sourceTree = "<group>";
+		};
+		9B0CC00A2192CC870073A168 /* IPhoneInfoManager */ = {
+			isa = PBXGroup;
+			children = (
+				9B0CC00C2192CCB10073A168 /* IPhoneInfoManager.h */,
+				9B0CC00D2192CCB10073A168 /* IPhoneInfoManager.m */,
+				9B0CC00F2192DE270073A168 /* AppDelegate+IPhoneInfoManager.h */,
+				9B0CC0102192DE270073A168 /* AppDelegate+IPhoneInfoManager.m */,
+			);
+			path = IPhoneInfoManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -141,7 +159,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B0CC00E2192CCB10073A168 /* IPhoneInfoManager.m in Sources */,
 				9B0CBFF92192CC500073A168 /* ViewController.m in Sources */,
+				9B0CC0112192DE270073A168 /* AppDelegate+IPhoneInfoManager.m in Sources */,
 				9B0CC0042192CC510073A168 /* main.m in Sources */,
 				9B0CBFF62192CC500073A168 /* AppDelegate.m in Sources */,
 			);
@@ -286,7 +306,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3AHZ82SGX3;
 				INFOPLIST_FILE = IPhoneInfoManagerDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -302,7 +324,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3AHZ82SGX3;
 				INFOPLIST_FILE = IPhoneInfoManagerDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
