@@ -24,6 +24,41 @@
     self.dataArray = [NSMutableArray array];
     NSArray *array = @[
                        @{
+                           @"name":@"是否有sim",
+                           @"value":@([IPhoneInfoManager MachineSIMInstalled]),
+                           @"desc":@""
+                           },
+                       @{
+                           @"name":@"是否使用代理",
+                           @"value":@([IPhoneInfoManager MachineConnectedToProxy]),
+                           @"desc":@""
+                           },
+                       @{
+                           @"name":@"是否越狱",
+                           @"value":@([IPhoneInfoManager MachineHasJailBreak]),
+                           @"desc":@""
+                           },
+                       @{
+                           @"name":@"wifi 名称",
+                           @"value":[IPhoneInfoManager MachineWifiName],
+                           @"desc":@""
+                           },
+                       @{
+                           @"name":@"屏幕亮度",
+                           @"value":@([IPhoneInfoManager MachineBrightness]),
+                           @"desc":@""
+                           },
+                       @{
+                           @"name":@"信号强度",
+                           @"value":@([IPhoneInfoManager MachineSignalStrength]),
+                           @"desc":@""
+                           },
+                       @{
+                           @"name":@"信号来源",
+                           @"value":@([IPhoneInfoManager MachineNetWorkType]),
+                           @"desc":@""
+                           },
+                       @{
                             @"name":@"设备型号",
                             @"value":[IPhoneInfoManager MachineName],
                             @"desc":@""

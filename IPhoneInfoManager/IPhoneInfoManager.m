@@ -225,7 +225,7 @@ typedef NS_ENUM(NSUInteger, DiviceType) {
         info = (__bridge_transfer NSDictionary *)CNCopyCurrentNetworkInfo((__bridge CFStringRef)ifname);
         NSLog(@"%@ => %@",ifname,info);
     }
-    if (!info) {
+    if (info) {
         return info[@"SSID"];
     }
     return @"";
