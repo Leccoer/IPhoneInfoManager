@@ -16,6 +16,24 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)setDeviceToken:(NSData *)data;
 
+#pragma mark- 其他
+//是否有sim
++ (BOOL)MachineSIMInstalled;
+//是否设置代理
++ (BOOL)MachineConnectedToProxy;
+//wifi name
++ (NSString *)MachineWifiName;
+//设备是否越狱
++ (BOOL)MachineHasJailBreak;
+//屏幕亮度
++ (CGFloat)MachineBrightness;
+//wifi信号强弱
++ (NSInteger)MachineSignalStrength;
+
+//信号来源，2G 3G 等
++ (NSInteger)MachineNetWorkType;
+
+
 #pragma mark - 设备类型 （枚举）
 //设备型号, iPHone
 + (const NSString *)MachineName;

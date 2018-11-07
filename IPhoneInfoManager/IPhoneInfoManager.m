@@ -10,6 +10,10 @@
 #import "sys/utsname.h"
 #import <AdSupport/AdSupport.h>
 #import <UIKit/UIKit.h>
+#import <CoreTelephony/CTTelephonyNetworkInfo.h>
+#import <CoreTelephony/CTCarrier.h>
+#import <CFNetwork/CFNetwork.h>
+#import <SystemConfiguration/CaptiveNetwork.h>
 
 // 下面是获取mac地址需要导入的头文件
 #include <sys/socket.h> // Per msqr
@@ -20,11 +24,10 @@
 #import <sys/sockio.h>
 #import <sys/ioctl.h>
 #import <arpa/inet.h>
-
 // 下面是获取ip需要的头文件
 #include <ifaddrs.h>
-
 #include <mach/mach.h> // 获取CPU信息所需要引入的头文件
+
 
 // 设备型号的枚举值
 typedef NS_ENUM(NSUInteger, DiviceType) {
@@ -190,6 +193,93 @@ typedef NS_ENUM(NSUInteger, DiviceType) {
     [IPhoneInfoManager sharedManager].deviceToken =  [NSString stringWithFormat:@"%@",data];
     [IPhoneInfoManager sharedManager].deviceTokenCRC32 = device_token_crc32;
 }
+
++ (BOOL)MachineSIMInstalled {
+    CTTelephonyNetworkInfo *networkInfo = [[CTTelephonyNetworkInfo alloc]init];
+    CTCarrier *carrier = [networkInfo subscriberCellularProvider];
+    return !carrier.isoCountryCode ? NO:YES;
+}
+
++ (BOOL)MachineConnectedToProxy {
+    
+    NSDictionary *proxySettings = (__bridge NSDictionary *)CFNetworkCopySystemProxySettings();
+    NSArray * proxies = (__bridge NSArray *)CFNetworkCopyProxiesForURL((__bridge CFURLRef)[NSURL URLWithString:@"https://www.apple.com"], (__bridge CFDictionaryRef)proxySettings);
+    
+    NSDictionary *settings = [proxies objectAtIndex:0];
+    
+    if ([[settings objectForKey:(NSString *)kCFProxyTypeKey] isEqualToString:@"kCFProxyTypeNone"])
+    {
+        return NO;
+    }
+    else
+    {
+        return YES;
+    }
+}
+
++ (NSString *)MachineWifiName{
+    NSArray *ifs = (__bridge_transfer id)CNCopySupportedInterfaces();
+    NSLog(@"interfaces:%@",ifs);
+    NSDictionary *info = nil;
+    for (NSString *ifname in ifs) {
+        info = (__bridge_transfer NSDictionary *)CNCopyCurrentNetworkInfo((__bridge CFStringRef)ifname);
+        NSLog(@"%@ => %@",ifname,info);
+    }
+    if (!info) {
+        return info[@"SSID"];
+    }
+    return @"";
+}
+
++ (BOOL)MachineHasJailBreak {
+    NSArray *jailbreak_tool_paths = @[
+                                      @"/Applications/Cydia.app",
+                                      @"/Library/MobileSubstrate/MobileSubstrate.dylib",
+                                      @"/bin/bash",
+                                      @"/usr/sbin/sshd",
+                                      @"/etc/apt"
+                                      ];
+    for (int i=0; i<jailbreak_tool_paths.count; i++) {
+        if ([[NSFileManager defaultManager] fileExistsAtPath:jailbreak_tool_paths[i]]) {
+            NSLog(@"The device is jail broken!");
+            return YES;
+        }
+    }
+    NSLog(@"The device is NOT jail broken!");
+    return NO;
+}
+
++ (CGFloat)MachineBrightness {
+    return [UIScreen mainScreen].brightness;
+}
+
++ (NSInteger)MachineSignalStrength {
+    UIApplication *app = [UIApplication sharedApplication];
+    NSArray *subviews = [[[app valueForKey:@"statusBar"] valueForKey:@"foregroundView"] subviews];
+    NSString *dataNetworkItemView = nil;
+    for (id subview in subviews) {
+        if([subview isKindOfClass:[NSClassFromString(@"UIStatusBarDataNetworkItemView") class]]) {
+            dataNetworkItemView = subview;
+            break;
+        }
+    }
+    return [[dataNetworkItemView valueForKey:@"_wifiStrengthBars"] intValue];
+}
+
+//信号来源，2G 3G 等
++ (NSInteger)MachineNetWorkType {
+    UIApplication *app = [UIApplication sharedApplication];
+    NSArray *subviews = [[[app valueForKeyPath:@"statusBar"] valueForKeyPath:@"foregroundView"] subviews];
+    for (id subview in subviews) {
+        if ([subview isKindOfClass:NSClassFromString(@"UIStatusBarDataNetworkItemView")]) {
+            int networkType = [[subview valueForKeyPath:@"dataNetworkType"] intValue];
+            return networkType;
+        }
+    }
+    return -1;
+}
+
+
 
 + (NSString *)MachineName {
     return iDeviceNameContainer[[IPhoneInfoManager sharedManager].iDevice];
@@ -1324,6 +1414,8 @@ static const NSString *latestFirmwareContainer[] = {
     
     [iUnknown]                          = @"Unknown"
 };
+
+
 
 
 @end
